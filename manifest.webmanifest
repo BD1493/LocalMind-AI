@@ -1,0 +1,18 @@
+{
+  "name": "LocalMind — AI in your browser",
+  "short_name": "LocalMind",
+  "description": "A browser-based AI workspace using local models.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#10111a",
+  "theme_color": "#10111a",
+  "icons": [
+    {
+      "src": "app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
