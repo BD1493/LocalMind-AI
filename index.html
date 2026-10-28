@@ -1,38 +1,867 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10111a">
-<title>Localmind — AI in your browser</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&display=swap');
-:root{color-scheme:dark;--bg:#10111a;--panel:#171923;--panel2:#1e202c;--border:#2b2d3b;--muted:#9296a9;--text:#f1f1f6;--accent:#b6f09c;--accent2:#d4ffa9;--purple:#b9a9ff;--red:#ff9898}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px 'DM Sans',sans-serif;min-height:100vh}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}.app{height:100vh;height:100dvh;min-height:0;display:grid;grid-template-columns:252px 1fr;overflow:hidden}.sidebar{background:#14151e;border-right:1px solid var(--border);display:flex;flex-direction:column;padding:22px 15px;min-height:0}.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;letter-spacing:-.5px;padding:3px 8px 24px}.logo{width:29px;height:29px;border-radius:9px;background:var(--accent);display:grid;place-items:center;color:#172015;font-size:18px}.brand small{font:10px 'DM Mono';color:var(--muted);letter-spacing:0;margin-left:auto}.new{border:1px solid #454753;background:transparent;border-radius:9px;padding:10px;text-align:left;margin:0 0 20px;transition:.2s}.new:hover,.action:hover{border-color:var(--accent);color:var(--accent)}.section-label{color:#777b8e;font:10px 'DM Mono';letter-spacing:1.2px;text-transform:uppercase;padding:0 9px 9px}.history{overflow:auto;flex:1}.chatitem{display:flex;align-items:center;gap:7px;padding:9px 10px;border-radius:8px;color:#b7b8c4;cursor:pointer;font-size:12px;margin:2px 0}.chatitem:hover,.chatitem.active{background:var(--panel2);color:var(--text)}.chatitem span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}.del{border:0;background:none;color:#6e7180;padding:2px;font-size:15px}.del:hover{color:var(--red)}.sidebottom{border-top:1px solid var(--border);padding-top:13px}.userrow{display:flex;gap:9px;align-items:center;padding:10px 8px 2px}.avatar{width:29px;height:29px;border-radius:50%;background:#2d3040;color:var(--accent);display:grid;place-items:center;font-weight:700}.user-meta{min-width:0;flex:1}.user-meta b{display:block;font-size:12px}.user-meta small{color:var(--muted);font-size:10px}.iconbtn{border:0;background:transparent;color:var(--muted);padding:6px;border-radius:6px}.iconbtn:hover{color:var(--text);background:var(--panel2)}.main{display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden}.topbar{height:62px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 26px}.top-title{font-size:13px;color:#c9c9d1}.engine{display:flex;align-items:center;gap:8px}.engine select{background:var(--panel);border:1px solid var(--border);padding:8px 26px 8px 10px;border-radius:8px;font-size:11px;max-width:220px}.status{font:10px 'DM Mono';color:var(--muted);display:flex;gap:6px;align-items:center}.dot{width:7px;height:7px;border-radius:50%;background:#787b88}.dot.ready{background:var(--accent);box-shadow:0 0 8px #b6f09c77}.dot.loading{background:#ffc56a;animation:pulse 1s infinite}@keyframes pulse{50%{opacity:.3}}.conversation{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding:30px 20px;scrollbar-gutter:stable}.welcome{max-width:720px;margin:8vh auto 0}.eyebrow{font:10px 'DM Mono';letter-spacing:1.6px;color:var(--accent);text-transform:uppercase}.welcome h1{font-size:42px;letter-spacing:-2px;line-height:1.08;margin:15px 0 13px}.welcome h1 em{font-style:normal;color:var(--accent)}.welcome p{color:var(--muted);line-height:1.7;max-width:580px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px}.card{border:1px solid var(--border);border-radius:12px;background:#151620;padding:15px;text-align:left;transition:.2s}.card:hover{border-color:#737b62;transform:translateY(-2px)}.card .emoji{font-size:19px}.card b{display:block;margin:11px 0 4px;font-size:12px}.card small{color:var(--muted);line-height:1.45;font-size:10px}.msgs{max-width:780px;margin:0 auto}.msg{display:flex;gap:12px;margin:20px 0;line-height:1.7}.msg .avatar{flex:none}.msgbody{min-width:0;white-space:pre-wrap;overflow-wrap:anywhere}.msgbody p{margin:3px 0 10px}.msgbody pre{white-space:pre-wrap;background:#0e0f16;border:1px solid var(--border);border-radius:8px;padding:12px;overflow:auto;font:12px 'DM Mono'}.msgbody code{font:12px 'DM Mono';color:var(--accent)}.role{font-size:10px;color:var(--muted);margin-bottom:3px}.typing{color:var(--muted);font-style:italic}.composer-wrap{padding:0 20px 17px}.composer{max-width:780px;margin:auto;border:1px solid #3a3d4a;background:#171923;border-radius:14px;padding:10px 12px 8px;box-shadow:0 10px 40px #0002}.composer textarea{display:block;resize:none;background:transparent;border:0;outline:0;width:100%;min-height:50px;max-height:150px;padding:6px 4px;color:var(--text);font-size:13px}.composebar{display:flex;gap:8px;align-items:center}.composebar select{background:#222430;border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-size:10px}.spacer{flex:1}.action{background:transparent;border:1px solid var(--border);border-radius:7px;padding:7px 9px;font-size:10px;color:#b6b8c4}.send{border:0;border-radius:8px;background:var(--accent);color:#162013;font-weight:700;padding:8px 14px;font-size:11px}.send:hover{background:var(--accent2)}.send:disabled{opacity:.5;cursor:wait}.hint{text-align:center;font-size:9px;color:#757889;margin:8px auto 0;max-width:780px}.notice{background:#252319;color:#dcc78e;border:1px solid #514934;border-radius:8px;padding:10px 12px;font-size:11px;line-height:1.5;margin:0 0 15px}.notice strong{color:#f0ddab}.filelist{font-size:10px;color:var(--purple);padding:3px 4px}.modalback{position:fixed;inset:0;background:#070810bb;display:grid;place-items:center;padding:18px;z-index:5}.modal{background:#191b26;border:1px solid #393b49;border-radius:14px;width:min(440px,100%);padding:24px;box-shadow:0 20px 90px #0009}.modal h2{margin:0 0 7px;font-size:20px}.modal p{color:var(--muted);line-height:1.6;font-size:12px}.modal input{width:100%;border:1px solid var(--border);border-radius:8px;background:#11121a;padding:11px;margin:10px 0}.modalactions{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}.mobile-menu{display:none}.drawer-scrim{display:block}.hidden{display:none!important}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#292c38;border:1px solid #464958;padding:10px 15px;border-radius:9px;font-size:12px;z-index:8}.user-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.@media{} 
-@media(max-width:760px){.app{grid-template-columns:1fr}.mobile-menu{display:block}.sidebar{display:flex;position:fixed;inset:0 auto 0 0;width:min(300px,86vw);z-index:20;transform:translateX(-105%);transition:transform .22s ease;box-shadow:15px 0 50px #0008}.sidebar.open{transform:translateX(0)}.drawer-scrim{position:fixed;inset:0;background:#0009;z-index:19}.topbar{gap:8px}.engine{min-width:0}.engine select{min-width:120px}.engine .status{display:none}.topbar{padding:0 13px;height:56px}.top-title{display:none}.engine{margin-left:auto}.engine select{max-width:175px}.conversation{padding:18px 13px}.welcome{margin:6vh auto 0}.welcome h1{font-size:35px}.cards{grid-template-columns:repeat(2,1fr)}.composer-wrap{padding:0 10px 12px}.status{font-size:0}.status .dot{width:8px;height:8px}.user-tools .action{padding:6px}.hint{font-size:8px}}
-@media(max-width:420px){.engine select{max-width:135px;font-size:10px}.cards{gap:7px}.card{padding:11px}.welcome h1{font-size:30px}.composebar{gap:5px}.composebar .action,.composebar select,.send{padding:6px;font-size:9px}}\n</style></head><body>
-<div class="app"><aside class="sidebar"><div class="brand"><span class="logo">✳</span> localmind <small>BROWSER AI</small></div><button class="new" id="newChat">＋ &nbsp;New chat</button><div class="section-label">Your conversations</div><div class="history" id="history"></div><div class="sidebottom"><div class="user-tools"><button class="action" id="exportBtn">⇩ Backup chats</button><button class="action" id="importBtn">⇧ Restore</button><button class="action" id="aboutBtn">ⓘ About</button><button class="action" id="downloadBtn">⇩ Download HTML</button><input class="hidden" id="importFile" type="file" accept=".json,application/json"></div><div class="userrow"><div class="avatar" id="userAvatar">?</div><div class="user-meta"><b id="userName">Guest</b><small>Saved on this device</small></div><button class="iconbtn" id="editUser" title="Change username">✎</button></div><div style="font-size:9px;color:#777b8e;line-height:1.5;padding:10px 7px 0">Clearing browser cache/site data may delete saved chats and username. Download a JSON backup first. Model cache and chat storage are separate.</div></div></aside>
-<main class="main"><header class="topbar"><button class="action mobile-menu" id="mobileMenu">☰</button><div class="top-title" id="chatTitle">New conversation</div><button class="action" id="aboutTopBtn">ⓘ About</button><div class="engine"><div class="status"><span class="dot" id="dot"></span><span id="statusText">Model not loaded</span></div><select id="modelSelect" aria-label="Choose AI model"><optgroup label="Small · under 1B"><option value="SmolLM2-360M-Instruct-q4f16_1-MLC">SmolLM2 · 360M</option><option value="Qwen2.5-0.5B-Instruct-q4f16_1-MLC">Qwen 2.5 · 0.5B</option><option value="Qwen2.5-Coder-0.5B-Instruct-q4f16_1-MLC">Qwen Coder · 0.5B</option><option value="hf:onnx-community/SmolLM2-360M-Instruct-ONNX">SmolLM2 Transformers · 360M</option></optgroup><optgroup label="Medium · 1–3B"><option value="Llama-3.2-1B-Instruct-q4f16_1-MLC">Llama 3.2 · 1B</option><option value="Qwen2.5-1.5B-Instruct-q4f16_1-MLC">Qwen 2.5 · 1.5B</option><option value="Qwen2.5-3B-Instruct-q4f16_1-MLC">Qwen 2.5 · 3B</option></optgroup><optgroup label="Large · 7B (powerful hardware)"><option value="Qwen2.5-7B-Instruct-q4f16_1-MLC">Qwen 2.5 · 7B</option></optgroup><optgroup label="Less restricted · community fine-tunes"><option value="Hermes-2-Theta-Llama-3-8B-q4f16_1-MLC">Hermes 2 Theta · 8B (large)</option><option value="Hermes-3-Llama-3.2-3B-q4f16_1-MLC">Hermes 3 · 3B (medium)</option><option value="OpenHermes-2.5-Mistral-7B-q4f16_1-MLC">OpenHermes · 7B (large)</option><option value="NeuralHermes-2.5-Mistral-7B-q4f16_1-MLC">NeuralHermes · 7B (large)</option></optgroup></select><button class="iconbtn" id="loadBtn" title="Load selected model">↓</button></div></header>
-<section class="conversation" id="conversation"><div class="welcome" id="welcome"><div class="notice"><strong>First load can take a while.</strong> The model downloads to your browser (hundreds of MB or more) and may take several minutes. Use a modern desktop browser and keep this tab open. Your model runs on your device; downloaded model files are cached by your browser.</div><div class="eyebrow">✳ &nbsp;YOUR PRIVATE AI WORKSPACE</div><h1>Big ideas.<br><em>Right in your browser.</em></h1><p>Choose a model, then ask for help with writing, coding, translation, files, and more. Your conversations stay on this device.</p><div class="cards"><button class="card" data-task="chat"><span class="emoji">✦</span><b>Ask anything</b><small>Brainstorm, explain, summarize</small></button><button class="card" data-task="code"><span class="emoji">⌘</span><b>Write code</b><small>Build, debug, or explain code</small></button><button class="card" data-task="expand"><span class="emoji">↗</span><b>Expand an idea</b><small>Turn notes into a polished draft</small></button><button class="card" data-task="translate"><span class="emoji">文</span><b>Translate</b><small>Translate text into any language</small></button><button class="card" data-task="chart"><span class="emoji">▥</span><b>Make a chart</b><small>Describe data or attach a file</small></button><button class="card" data-task="image"><span class="emoji">▧</span><b>Generate an image</b><small>Experimental, model download required</small></button></div></div><div class="msgs" id="msgs"></div></section>
-<div class="composer-wrap"><div class="composer"><textarea id="prompt" placeholder="Message localmind… (Shift + Enter for a new line)"></textarea><div id="fileNames" class="filelist"></div><div class="composebar"><button class="action" id="uploadBtn">＋ Attach</button><button class="action hidden" id="zipBtn">⇩ Make ZIP</button><input id="fileInput" class="hidden" type="file" multiple><select id="taskSelect" aria-label="Choose task"><option value="chat">Chat</option><option value="code">Coding</option><option value="expand">Expand</option><option value="translate">Translate</option><option value="chart">Chart</option><option value="image">Image generation</option></select><span class="spacer"></span><button class="send" id="sendBtn">Send ↗</button></div></div><div class="hint">Prompts run on your device. Chats and model files are stored locally in browser storage/cache. Model downloads need internet. AI can make mistakes.</div></div></main></div>
-<div id="drawerScrim" class="drawer-scrim hidden"></div><div id="modalRoot"></div><div id="toast" class="toast hidden"></div>
-<script type="module">
-const standaloneHTML='<!doctype html>\n'+document.documentElement.outerHTML;const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const DB='localmind.chats.v1', USER='localmind.user.v1';let chats=[],active=null,files=[],engine=null,engineType='',busy=false,hfWorker=null,hfPending=null;
-try{chats=JSON.parse(localStorage.getItem(DB)||'[]')}catch{chats=[]}let username=localStorage.getItem(USER)||'';
-function save(){try{localStorage.setItem(DB,JSON.stringify(chats))}catch(e){toast('Storage is full. Export a backup, then remove older chats.')}}function toast(t){let el=$('#toast');el.textContent=t;el.classList.remove('hidden');setTimeout(()=>el.classList.add('hidden'),2800)}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function format(s){let t=escapeHtml(s);t=t.replace(/```([\w-]*)\n?([\s\S]*?)```/g,(_,lang,code)=>`<pre><code>${code.trim()}</code></pre>`);t=t.replace(/`([^`]+)`/g,'<code>$1</code>');return t.split(/\n{2,}/).map(p=>p.startsWith('<pre>')?p:`<p>${p.replace(/\n/g,'<br>')}</p>`).join('')}
-function render(){let h=$('#history');h.innerHTML='';[...chats].reverse().forEach(c=>{let d=document.createElement('div');d.className='chatitem'+(c.id===active?' active':'');d.innerHTML=`<span>${escapeHtml(c.title||'New conversation')}</span><button class="del" title="Delete conversation">×</button>`;d.onclick=e=>{if(e.target.closest('.del')){chats=chats.filter(x=>x.id!==c.id);if(active===c.id)active=null;save();render();return}active=c.id;render();closeDrawer()};h.append(d)});let c=chats.find(x=>x.id===active);$('#chatTitle').textContent=c?.title||'New conversation';$('#welcome').classList.toggle('hidden',!!(c?.messages?.length));$('#msgs').innerHTML=c?(c.messages||[]).map(m=>`<div class="msg"><div class="avatar">${m.role==='user'?escapeHtml((username||'Y')[0].toUpperCase()):'✳'}</div><div class="msgbody"><div class="role">${m.role==='user'?escapeHtml(username||'You'):'localmind'}</div>${format(m.content)}</div></div>`).join(''):'';$('#conversation').scrollTop=$('#conversation').scrollHeight;$('#userName').textContent=username||'Set a username';$('#userAvatar').textContent=(username||'?')[0].toUpperCase()}
-function setStatus(text,mode=''){ $('#statusText').textContent=text;$('#dot').className='dot '+mode }
-function askUsername(){modal('Welcome to localmind',`<p>What should your AI call you? Your name is saved only in this browser.</p><input id="nameField" maxlength="32" placeholder="Your name" value="${escapeHtml(username)}">`,`<button class="action" id="skipName">Later</button><button class="send" id="saveName">Save name</button>`,()=>{username=$('#nameField').value.trim();if(username)localStorage.setItem(USER,username);render();closeModal()});$('#skipName').onclick=closeModal}
-function modal(title,body,buttons,submit){$('#modalRoot').innerHTML=`<div class="modalback"><div class="modal"><h2>${title}</h2>${body}<div class="modalactions">${buttons}</div></div></div>`;$('#modalRoot').querySelector('.modalback').onclick=e=>{if(e.target.classList.contains('modalback'))closeModal()};if(submit)$('#saveName').onclick=submit}
-function closeModal(){$('#modalRoot').innerHTML=''}
-function newChat(){active=null;files=[];$('#fileNames').textContent='';render();$('#prompt').focus()}
-async function loadModel(){if(busy)return;const which=$('#modelSelect').value;busy=true;$('#loadBtn').disabled=true;engine=null;engineType='';setStatus('Starting worker…','loading');try{if(location.protocol==='file:')throw Error('Open this page from localhost (for example, VS Code Live Server); browsers block module workers from file pages.');if(!navigator.gpu)throw Error('WebGPU is unavailable in this browser/device. Try an up-to-date supported browser and device.');if(which.startsWith('hf:')){const source="import {pipeline,env} from 'https://esm.run/@huggingface/transformers';env.allowLocalModels=false;let gen;onmessage=async e=>{const m=e.data;try{if(m.cmd==='load'){gen=await pipeline('text-generation',m.model,{device:'webgpu',progress_callback:p=>{if(p.status==='progress')postMessage({type:'progress',value:Math.round(p.progress||0)})}});postMessage({type:'ready'})}else if(m.cmd==='generate'){const out=await gen(m.prompt,{max_new_tokens:400,do_sample:true,temperature:.7});const text=Array.isArray(out)?out[0]?.generated_text:out?.generated_text;postMessage({type:'answer',text:typeof text==='string'?text:JSON.stringify(text)})}}catch(err){postMessage({type:'error',message:err?.message||String(err)})}}";const blob=URL.createObjectURL(new Blob([source],{type:'text/javascript'}));hfWorker=new Worker(blob,{type:'module'});URL.revokeObjectURL(blob);hfWorker.onmessage=e=>{const m=e.data;if(m.type==='progress')setStatus('Downloading '+m.value+'%','loading');else if(m.type==='ready'){setStatus('Model ready','ready');toast('Model ready on this device');hfPending?.resolve(true);hfPending=null}else if(m.type==='answer'){hfPending?.resolve(m.text);hfPending=null}else if(m.type==='error'){if(hfPending){hfPending.reject(Error(m.message));hfPending=null}else{setStatus('Model error');toast(m.message)}}};hfWorker.onerror=e=>{hfPending?.reject(Error(e.message||'Model worker failed'));hfPending=null;setStatus('Worker error')};await new Promise((resolve,reject)=>{hfPending={resolve,reject};hfWorker.postMessage({cmd:'load',model:which.slice(3)})});engine=hfWorker;engineType='transformers'}else{const {CreateWebWorkerMLCEngine}=await import('https://esm.run/@mlc-ai/web-llm');const source="import {WebWorkerMLCEngineHandler} from 'https://esm.run/@mlc-ai/web-llm';const h=new WebWorkerMLCEngineHandler();onmessage=h.onmessage.bind(h);";const blob=URL.createObjectURL(new Blob([source],{type:'text/javascript'}));const worker=new Worker(blob,{type:'module'});URL.revokeObjectURL(blob);worker.onerror=e=>{console.error('WebLLM worker error',e);setStatus('Worker error')};engine=await CreateWebWorkerMLCEngine(worker,which,{initProgressCallback:p=>setStatus(p.text||'Loading model…','loading')});engineType='webllm'}setStatus('Model ready','ready');toast('Model ready on this device')}catch(e){console.error(e);engine=null;engineType='';setStatus('Load failed');toast(e.message||'Model failed to load')}finally{busy=false;$('#loadBtn').disabled=false}}
-function taskPrompt(task,prompt){const pre={code:'You are a helpful programming assistant. Provide correct, readable code and explain it briefly.\n\n',expand:'Expand and polish the user’s idea while preserving its meaning.\n\n',translate:'Translate the following text. If no target language is specified, ask which language they want.\n\n',chart:'Analyze the data in the message or attached file. Summarize the key values and suggest a chart. When possible, include a compact JSON array of numeric values for plotting.\n\n'};return (pre[task]||'')+prompt}
-async function generate(task,prompt){if(task!=='image'&&!engine){toast('Choose a model and press ↓ to load it first.');return}if(busy)return;busy=true;$('#sendBtn').disabled=true;let c=chats.find(x=>x.id===active);if(!c){c={id:crypto.randomUUID(),title:prompt.slice(0,42)||task,messages:[]};chats.push(c);active=c.id}let content=prompt;if(files.length){for(const f of files){if(f.type.startsWith('text/')||/\.(txt|md|csv|json|js|ts|html|css|py|xml|yaml|yml|log)$/i.test(f.name)){try{const txt=await f.text();content+=`\n\n[Attached file: ${f.name}]\n${txt.slice(0,20000)}`}catch{}}else content+=`\n\n[Attached file: ${f.name} (${f.type||'unknown file type'}, ${Math.round(f.size/1024)} KB). File content is not readable as text.]`}}
-if(task==='image'){await imageGen(prompt,c);finish();return}if(task==='chart'){addChart(c,content)}c.messages.push({role:'user',content});files=[];$('#fileNames').textContent='';$('#prompt').value='';save();render();let wrap=document.createElement('div');wrap.className='msg';wrap.innerHTML='<div class="avatar">✳</div><div class="msgbody"><div class="role">localmind</div><div class="typing">Thinking on your device…</div></div>';$('#msgs').append(wrap);$('#welcome').classList.add('hidden');$('#conversation').scrollTop=$('#conversation').scrollHeight;const thinkingStarted=Date.now();const thinkingTimer=setInterval(()=>{if(wrap.isConnected){const sec=Math.floor((Date.now()-thinkingStarted)/1000);wrap.querySelector('.typing').textContent=sec<30?'Thinking on your device…':`Still generating on your device (${sec}s). Larger models can take a few minutes.`}},5000);try{let answer;if(engineType==='webllm'){const hist=c.messages.slice(-12).map(m=>({role:m.role==='assistant'?'assistant':'user',content:m.role==='user'&&m.content===content?taskPrompt(task,content):m.content}));const stream=await engine.chat.completions.create({messages:[{role:'system',content:'You are localmind, a helpful assistant. Address the user as '+(username||'friend')+' when natural.'},...hist],stream:true});answer='';for await(const chunk of stream){answer+=chunk.choices?.[0]?.delta?.content||'';wrap.querySelector('.typing').innerHTML=format(answer)||'Generating…';$('#conversation').scrollTop=$('#conversation').scrollHeight}}else{answer=await new Promise((resolve,reject)=>{hfPending={resolve,reject};hfWorker.postMessage({cmd:'generate',prompt:taskPrompt(task,content)})})}if(!answer.trim())throw Error('The model returned an empty answer. Try a smaller model or a shorter prompt.');c.messages.push({role:'assistant',content:answer});}catch(e){console.error(e);c.messages.push({role:'assistant',content:`I couldn’t finish that request: ${e.message||e}. Try again or reload the model.`})}clearInterval(thinkingTimer);wrap.remove();save();render();finish()}
-function finish(){busy=false;$('#sendBtn').disabled=false}
-function addChart(c,prompt){let nums=[...prompt.matchAll(/(?:^|[,\s])(-?\d+(?:\.\d+)?)/g)].map(m=>+m[1]).slice(0,14);if(nums.length<2)return;let max=Math.max(...nums.map(Math.abs),1);let bars=nums.map((n,i)=>`<div title="${n}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:70%;height:${Math.max(5,Math.abs(n)/max*110)}px;background:${i%2?'#b9a9ff':'#b6f09c'};border-radius:4px 4px 0 0"></div><small style="font:9px 'DM Mono';color:#9296a9">${n}</small></div>`).join('');$('#msgs').insertAdjacentHTML('beforeend',`<div style="max-width:780px;margin:8px auto 18px;padding:14px;background:#171923;border:1px solid #2b2d3b;border-radius:10px"><div style="font:10px 'DM Mono';color:#9296a9;margin-bottom:12px">QUICK CHART · ${nums.length} VALUES</div><div style="display:flex;align-items:end;gap:7px;height:140px;border-bottom:1px solid #393b49">${bars}</div></div>`)}
-async function imageGen(prompt,c){c.messages.push({role:'user',content:'Generate an image: '+prompt});$('#prompt').value='';save();render();$('#welcome').classList.add('hidden');let wrap=document.createElement('div');wrap.className='msg';wrap.innerHTML='<div class="avatar">✳</div><div class="msgbody"><div class="role">localmind</div><div class="typing">Loading image model… this may take a few minutes.</div></div>';$('#msgs').append(wrap);try{const {pipeline,env}=await import('https://esm.run/@huggingface/transformers');env.allowLocalModels=false;const gen=await pipeline('text-to-image','Xenova/segmind-tiny-sd',{progress_callback:p=>{if(p.status==='progress')wrap.querySelector('.typing').textContent=`Downloading image model: ${Math.round(p.progress||0)}%…`}});const out=await gen(prompt,{num_inference_steps:5});const img=out[0];const url=URL.createObjectURL(img);wrap.querySelector('.msgbody').innerHTML=`<div class="role">localmind · experimental image generation</div><img src="${url}" alt="Generated image" style="max-width:min(100%,480px);border-radius:10px"><br><a href="${url}" download="localmind-image.png" style="color:#b6f09c">Download image</a>`;c.messages.push({role:'assistant',content:'Image generated. Download it before closing the page; image files are not embedded in chat backups.'});}catch(e){wrap.querySelector('.msgbody').innerHTML=`<div class="role">localmind</div><p>Image generation is unavailable here: ${escapeHtml(e.message||String(e))}. This experimental model needs WebGPU and substantial memory.</p>`;c.messages.push({role:'assistant',content:'Image generation is unavailable in this browser. The experimental text-to-image model needs WebGPU and substantial memory.'})}save();} 
-$('#newChat').onclick=()=>{newChat();closeDrawer()};$('#loadBtn').onclick=loadModel;$('#mobileMenu').onclick=()=>{$('.sidebar').classList.add('open');$('#drawerScrim').classList.remove('hidden')};$('#drawerScrim').onclick=closeDrawer;function closeDrawer(){$('.sidebar').classList.remove('open');$('#drawerScrim').classList.add('hidden')}$('#modelSelect').onchange=()=>{engine=null;engineType='';setStatus('Model not loaded');toast('Load the selected model to use it')};$('#sendBtn').onclick=()=>{let p=$('#prompt').value.trim();if(p)generate($('#taskSelect').value,p)};$('#prompt').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#sendBtn').click()}};$('#uploadBtn').onclick=()=>$('#fileInput').click();$('#fileInput').onchange=e=>{files=[...files,...e.target.files];$('#fileNames').textContent=files.map(f=>f.name).join(' · ');$('#zipBtn').classList.toggle('hidden',files.length<1);e.target.value=''};const showAbout=()=>{closeDrawer();modal('About localmind',`<p>localmind runs text generation in your browser using WebLLM (WebGPU) or Transformers.js. Prompts are processed on your device; they are not sent to an AI inference server.</p><p><strong>Local data:</strong> your username and saved chats are stored in this browser’s local storage. Downloaded model files are cached by your browser. So data is stored locally, and clearing site data may delete it. Export a JSON backup before clearing browser data.</p><p><strong>Network:</strong> this standalone page loads scripts and model files from external providers. The HTML still needs internet for libraries and model weights, and must be opened from localhost (not file://) for browser workers. Browser support and device memory affect which models work. AI output can be incorrect; image generation is experimental.</p>`,`<button class="send" id="closeAbout">Close</button>`);$('#closeAbout').onclick=closeModal};$('#aboutBtn').onclick=showAbout;$('#aboutTopBtn').onclick=showAbout;$('#downloadBtn').onclick=()=>{const blob=new Blob([standaloneHTML],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='index.html';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('Downloaded index.html')};$('#zipBtn').onclick=async()=>{if(!files.length)return;try{const {default:JSZip}=await import('https://esm.run/jszip');const zip=new JSZip();for(const f of files)zip.file(f.name,f);const blob=await zip.generateAsync({type:'blob'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='localmind-files.zip';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('ZIP downloaded')}catch(e){toast('Could not create ZIP: '+e.message)}};$('#editUser').onclick=askUsername;$('#taskSelect').onchange=()=>{let t=$('#taskSelect').value;$('#prompt').placeholder=t==='translate'?'Text to translate and target language…':t==='image'?'Describe the image to generate…':t==='chart'?'Paste data or attach a CSV file…':'Message localmind…'};$$('.card').forEach(b=>b.onclick=()=>{$('#taskSelect').value=b.dataset.task;$('#taskSelect').dispatchEvent(new Event('change'));$('#prompt').focus()});$('#exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify({format:'localmind-chat-backup',version:1,exportedAt:new Date().toISOString(),username,chats},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='localmind-chat-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('Backup downloaded as JSON')};$('#importBtn').onclick=()=>$('#importFile').click();$('#importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(!Array.isArray(data.chats))throw Error('Invalid backup format');let ids=new Set(chats.map(c=>c.id));chats.push(...data.chats.filter(c=>!ids.has(c.id)));if(data.username&&!username){username=data.username;localStorage.setItem(USER,username)}save();render();toast('Chats restored')}catch(err){toast('Could not restore: '+err.message)}e.target.value=''};
-$('#conversation').addEventListener('click',e=>{if(e.target.closest('img')||e.target.closest('a'))return});render();if(!username)setTimeout(askUsername,350);
-</script></body></html>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#10111a">
+    <title>LocalMind — AI in your browser</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="app-icon.svg">
+    <link rel="manifest" href="manifest.webmanifest">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            color-scheme: dark;
+            --bg: #10111a;
+            --panel: #171923;
+            --panel2: #1e202c;
+            --border: #2b2d3b;
+            --muted: #9296a9;
+            --text: #f1f1f6;
+            --accent: #b6f09c;
+            --accent2: #d4ffa9;
+            --purple: #b9a9ff;
+            --red: #ff9898
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 14px 'DM Sans', sans-serif;
+            min-height: 100vh
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+            color: inherit
+        }
+
+        button {
+            cursor: pointer
+        }
+
+        .app {
+            height: 100vh;
+            height: 100dvh;
+            min-height: 0;
+            display: grid;
+            grid-template-columns: 252px 1fr;
+            overflow: hidden
+        }
+
+        .sidebar {
+            background: #14151e;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 22px 15px;
+            min-height: 0
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 17px;
+            letter-spacing: -.5px;
+            padding: 3px 8px 24px
+        }
+
+        .logo {
+            width: 29px;
+            height: 29px;
+            border-radius: 9px;
+            background: var(--accent);
+            display: grid;
+            place-items: center;
+            color: #172015;
+            font-size: 18px
+        }
+
+        .brand small {
+            font: 10px 'DM Mono';
+            color: var(--muted);
+            letter-spacing: 0;
+            margin-left: auto
+        }
+
+        .new {
+            border: 1px solid #454753;
+            background: transparent;
+            border-radius: 9px;
+            padding: 10px;
+            text-align: left;
+            margin: 0 0 20px;
+            transition: .2s
+        }
+
+        .new:hover,
+        .action:hover {
+            border-color: var(--accent);
+            color: var(--accent)
+        }
+
+        .section-label {
+            color: #777b8e;
+            font: 10px 'DM Mono';
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            padding: 0 9px 9px
+        }
+
+        .history {
+            overflow: auto;
+            flex: 1
+        }
+
+        .chatitem {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 10px;
+            border-radius: 8px;
+            color: #b7b8c4;
+            cursor: pointer;
+            font-size: 12px;
+            margin: 2px 0
+        }
+
+        .chatitem:hover,
+        .chatitem.active {
+            background: var(--panel2);
+            color: var(--text)
+        }
+
+        .chatitem span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 1
+        }
+
+        .del {
+            border: 0;
+            background: none;
+            color: #6e7180;
+            padding: 2px;
+            font-size: 15px
+        }
+
+        .del:hover {
+            color: var(--red)
+        }
+
+        .sidebottom {
+            border-top: 1px solid var(--border);
+            padding-top: 13px
+        }
+
+        .userrow {
+            display: flex;
+            gap: 9px;
+            align-items: center;
+            padding: 10px 8px 2px
+        }
+
+        .avatar {
+            width: 29px;
+            height: 29px;
+            border-radius: 50%;
+            background: #2d3040;
+            color: var(--accent);
+            display: grid;
+            place-items: center;
+            font-weight: 700
+        }
+
+        .user-meta {
+            min-width: 0;
+            flex: 1
+        }
+
+        .user-meta b {
+            display: block;
+            font-size: 12px
+        }
+
+        .user-meta small {
+            color: var(--muted);
+            font-size: 10px
+        }
+
+        .iconbtn {
+            border: 0;
+            background: transparent;
+            color: var(--muted);
+            padding: 6px;
+            border-radius: 6px
+        }
+
+        .iconbtn:hover {
+            color: var(--text);
+            background: var(--panel2)
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            min-height: 0;
+            overflow: hidden
+        }
+
+        .topbar {
+            height: 62px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 26px
+        }
+
+        .top-title {
+            font-size: 13px;
+            color: #c9c9d1
+        }
+
+        .engine {
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .engine select {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 8px 26px 8px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            max-width: 220px
+        }
+
+        .status {
+            font: 10px 'DM Mono';
+            color: var(--muted);
+            display: flex;
+            gap: 6px;
+            align-items: center
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #787b88
+        }
+
+        .dot.ready {
+            background: var(--accent);
+            box-shadow: 0 0 8px #b6f09c77
+        }
+
+        .dot.loading {
+            background: #ffc56a;
+            animation: pulse 1s infinite
+        }
+
+        @keyframes pulse {
+            50% {
+                opacity: .3
+            }
+        }
+
+        .conversation {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            overscroll-behavior: contain;
+            padding: 30px 20px;
+            scrollbar-gutter: stable
+        }
+
+        .welcome {
+            max-width: 720px;
+            margin: 8vh auto 0
+        }
+
+        .eyebrow {
+            font: 10px 'DM Mono';
+            letter-spacing: 1.6px;
+            color: var(--accent);
+            text-transform: uppercase
+        }
+
+        .welcome h1 {
+            font-size: 42px;
+            letter-spacing: -2px;
+            line-height: 1.08;
+            margin: 15px 0 13px
+        }
+
+        .welcome h1 em {
+            font-style: normal;
+            color: var(--accent)
+        }
+
+        .welcome p {
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 580px
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 28px
+        }
+
+        .card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #151620;
+            padding: 15px;
+            text-align: left;
+            transition: .2s
+        }
+
+        .card:hover {
+            border-color: #737b62;
+            transform: translateY(-2px)
+        }
+
+        .card .emoji {
+            font-size: 19px
+        }
+
+        .card b {
+            display: block;
+            margin: 11px 0 4px;
+            font-size: 12px
+        }
+
+        .card small {
+            color: var(--muted);
+            line-height: 1.45;
+            font-size: 10px
+        }
+
+        .msgs {
+            max-width: 780px;
+            margin: 0 auto
+        }
+
+        .msg {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0;
+            line-height: 1.7
+        }
+
+        .msg .avatar {
+            flex: none
+        }
+
+        .msgbody {
+            min-width: 0;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere
+        }
+
+        .msgbody p {
+            margin: 3px 0 10px
+        }
+
+        .msgbody pre {
+            white-space: pre-wrap;
+            background: #0e0f16;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            overflow: auto;
+            font: 12px 'DM Mono'
+        }
+
+        .msgbody code {
+            font: 12px 'DM Mono';
+            color: var(--accent)
+        }
+
+        .role {
+            font-size: 10px;
+            color: var(--muted);
+            margin-bottom: 3px
+        }
+
+        .typing {
+            color: var(--muted);
+            font-style: italic
+        }
+
+        .composer-wrap {
+            padding: 0 20px 17px
+        }
+
+        .composer {
+            max-width: 780px;
+            margin: auto;
+            border: 1px solid #3a3d4a;
+            background: #171923;
+            border-radius: 14px;
+            padding: 10px 12px 8px;
+            box-shadow: 0 10px 40px #0002
+        }
+
+        .composer textarea {
+            display: block;
+            resize: none;
+            background: transparent;
+            border: 0;
+            outline: 0;
+            width: 100%;
+            min-height: 50px;
+            max-height: 150px;
+            padding: 6px 4px;
+            color: var(--text);
+            font-size: 13px
+        }
+
+        .composebar {
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .composebar select {
+            background: #222430;
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            padding: 6px 8px;
+            font-size: 10px
+        }
+
+        .spacer {
+            flex: 1
+        }
+
+        .action {
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            padding: 7px 9px;
+            font-size: 10px;
+            color: #b6b8c4
+        }
+
+        .send {
+            border: 0;
+            border-radius: 8px;
+            background: var(--accent);
+            color: #162013;
+            font-weight: 700;
+            padding: 8px 14px;
+            font-size: 11px
+        }
+
+        .send:hover {
+            background: var(--accent2)
+        }
+
+        .send:disabled {
+            opacity: .5;
+            cursor: wait
+        }
+
+        .hint {
+            text-align: center;
+            font-size: 9px;
+            color: #757889;
+            margin: 8px auto 0;
+            max-width: 780px
+        }
+
+        .notice {
+            background: #252319;
+            color: #dcc78e;
+            border: 1px solid #514934;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 11px;
+            line-height: 1.5;
+            margin: 0 0 15px
+        }
+
+        .notice strong {
+            color: #f0ddab
+        }
+
+        .filelist {
+            font-size: 10px;
+            color: var(--purple);
+            padding: 3px 4px
+        }
+
+        .modalback {
+            position: fixed;
+            inset: 0;
+            background: #070810bb;
+            display: grid;
+            place-items: center;
+            padding: 18px;
+            z-index: 5
+        }
+
+        .modal {
+            background: #191b26;
+            border: 1px solid #393b49;
+            border-radius: 14px;
+            width: min(440px, 100%);
+            padding: 24px;
+            box-shadow: 0 20px 90px #0009
+        }
+
+        .modal h2 {
+            margin: 0 0 7px;
+            font-size: 20px
+        }
+
+        .modal p {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 12px
+        }
+
+        .modal input {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #11121a;
+            padding: 11px;
+            margin: 10px 0
+        }
+
+        .modalactions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 15px
+        }
+
+        .mobile-menu {
+            display: none
+        }
+
+        .drawer-scrim {
+            display: block
+        }
+
+        .hidden {
+            display: none !important
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #292c38;
+            border: 1px solid #464958;
+            padding: 10px 15px;
+            border-radius: 9px;
+            font-size: 12px;
+            z-index: 8
+        }
+
+        .user-tools {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 5px
+        }
+
+        .@media {}
+
+        @media(max-width:760px) {
+            .app {
+                grid-template-columns: 1fr
+            }
+
+            .mobile-menu {
+                display: block
+            }
+
+            .sidebar {
+                display: flex;
+                position: fixed;
+                inset: 0 auto 0 0;
+                width: min(300px, 86vw);
+                z-index: 20;
+                transform: translateX(-105%);
+                transition: transform .22s ease;
+                box-shadow: 15px 0 50px #0008
+            }
+
+            .sidebar.open {
+                transform: translateX(0)
+            }
+
+            .drawer-scrim {
+                position: fixed;
+                inset: 0;
+                background: #0009;
+                z-index: 19
+            }
+
+            .topbar {
+                gap: 8px
+            }
+
+            .engine {
+                min-width: 0
+            }
+
+            .engine select {
+                min-width: 120px
+            }
+
+            .engine .status {
+                display: none
+            }
+
+            .topbar {
+                padding: 0 13px;
+                height: 56px
+            }
+
+            .top-title {
+                display: none
+            }
+
+            .engine {
+                margin-left: auto
+            }
+
+            .engine select {
+                max-width: 175px
+            }
+
+            .conversation {
+                padding: 18px 13px
+            }
+
+            .welcome {
+                margin: 6vh auto 0
+            }
+
+            .welcome h1 {
+                font-size: 35px
+            }
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .composer-wrap {
+                padding: 0 10px 12px
+            }
+
+            .status {
+                font-size: 0
+            }
+
+            .status .dot {
+                width: 8px;
+                height: 8px
+            }
+
+            .user-tools .action {
+                padding: 6px;
+                font-size: 9px
+            }
+
+            .hint {
+                font-size: 8px
+            }
+        }
+
+        @media(max-width:420px) {
+            .engine select {
+                max-width: 135px;
+                font-size: 10px
+            }
+
+            .cards {
+                gap: 7px
+            }
+
+            .card {
+                padding: 11px
+            }
+
+            .welcome h1 {
+                font-size: 30px
+            }
+
+            .composebar {
+                gap: 5px
+            }
+
+            .composebar .action,
+            .composebar select,
+            .send {
+                padding: 6px;
+                font-size: 9px
+            }
+        }
+
+        \n
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="brand"><span class="logo">✳</span> LocalMind <small>BROWSER AI</small></div><button class="new"
+                id="newChat">＋ &nbsp;New chat</button>
+            <div class="section-label">Your conversations</div>
+            <div class="history" id="history"></div>
+            <div class="sidebottom">
+                <div class="user-tools"><button class="action" id="exportBtn">⇩ Backup chats</button><button
+                        class="action" id="importBtn">⇧ Restore</button><button class="action" id="aboutBtn">ⓘ
+                        About</button><button class="action" id="downloadBtn">⇩ Download HTML</button><button
+                        class="action" id="clearCacheBtn">⌫ Clear cache &amp; chats</button><input class="hidden"
+                        id="importFile" type="file" accept=".json,application/json"></div>
+                <div class="userrow">
+                    <div class="avatar" id="userAvatar">?</div>
+                    <div class="user-meta"><b id="userName">Guest</b><small>Saved on this device</small></div><button
+                        class="iconbtn" id="editUser" title="Change username">✎</button>
+                </div>
+                <div style="font-size:9px;color:#777b8e;line-height:1.5;padding:10px 7px 0">Clearing browser cache/site
+                    data may delete saved chats and username. Download a JSON backup first. Model cache and chat storage
+                    are separate.</div>
+            </div>
+        </aside>
+        <main class="main">
+            <header class="topbar"><button class="action mobile-menu" id="mobileMenu">☰</button>
+                <div class="top-title" id="chatTitle">New conversation</div><button class="action" id="aboutTopBtn">ⓘ
+                    About</button>
+                <div class="engine">
+                    <div class="status"><span class="dot" id="dot"></span><span id="statusText">Model not loaded</span>
+                    </div><select id="modelSelect" aria-label="Choose AI model">
+                        <optgroup label="Small · under 1B">
+                            <option value="SmolLM2-360M-Instruct-q4f16_1-MLC">SmolLM2 · 360M</option>
+                            <option value="Qwen2.5-0.5B-Instruct-q4f16_1-MLC">Qwen 2.5 · 0.5B</option>
+                            <option value="Qwen2.5-Coder-0.5B-Instruct-q4f16_1-MLC">Qwen Coder · 0.5B</option>
+                            <option value="hf:onnx-community/SmolLM2-360M-Instruct-ONNX">SmolLM2 Transformers · 360M
+                            </option>
+                        </optgroup>
+                        <optgroup label="Medium · 1–3B">
+                            <option value="Llama-3.2-1B-Instruct-q4f16_1-MLC">Llama 3.2 · 1B</option>
+                            <option value="Qwen2.5-1.5B-Instruct-q4f16_1-MLC">Qwen 2.5 · 1.5B</option>
+                            <option value="Qwen2.5-3B-Instruct-q4f16_1-MLC">Qwen 2.5 · 3B</option>
+                        </optgroup>
+                        <optgroup label="Large · 7B (powerful hardware)">
+                            <option value="Qwen2.5-7B-Instruct-q4f16_1-MLC">Qwen 2.5 · 7B</option>
+                        </optgroup>
+                        <optgroup label="Less restricted · community fine-tunes">
+                            <option value="Hermes-2-Theta-Llama-3-8B-q4f16_1-MLC">Hermes 2 Theta · 8B (large)</option>
+                            <option value="Hermes-3-Llama-3.2-3B-q4f16_1-MLC">Hermes 3 · 3B (medium)</option>
+                            <option value="OpenHermes-2.5-Mistral-7B-q4f16_1-MLC">OpenHermes · 7B (large)</option>
+                            <option value="NeuralHermes-2.5-Mistral-7B-q4f16_1-MLC">NeuralHermes · 7B (large)</option>
+                        </optgroup>
+                    </select><button class="iconbtn" id="loadBtn" title="Load selected model">↓</button>
+                </div>
+            </header>
+            <section class="conversation" id="conversation">
+                <div class="welcome" id="welcome">
+                    <div class="notice"><strong>First load can take a while.</strong> Text models download separately
+                        from the image model. Image generation uses SD-Turbo and requires WebGPU; it does not use the
+                        selected text model. Use a modern desktop browser and keep this tab open. Your model runs on
+                        your device; downloaded model files are cached by your browser.</div>
+                    <div class="eyebrow">✳ &nbsp;YOUR PRIVATE AI WORKSPACE</div>
+                    <h1>Big ideas.<br><em>Right in your browser.</em></h1>
+                    <p>Choose a model, then ask for help with writing, coding, translation, files, and more. Your
+                        conversations stay on this device.</p>
+                    <div class="cards"><button class="card" data-task="chat"><span class="emoji">✦</span><b>Ask
+                                anything</b><small>Brainstorm, explain, summarize</small></button><button class="card"
+                            data-task="help"><span class="emoji">ⓘ</span><b>Ask about LocalMind</b><small>Get app help
+                                without loading a model</small></button><button class="card" data-task="code"><span
+                                class="emoji">⌘</span><b>Write code</b><small>Build, debug, or explain
+                                code</small></button><button class="card" data-task="expand"><span
+                                class="emoji">↗</span><b>Expand an idea</b><small>Turn notes into a polished
+                                draft</small></button><button class="card" data-task="translate"><span
+                                class="emoji">文</span><b>Translate</b><small>Translate text into any
+                                language</small></button><button class="card" data-task="chart"><span
+                                class="emoji">▥</span><b>Make a chart</b><small>Describe data or attach a
+                                file</small></button><button class="card" data-task="image"><span
+                                class="emoji">▧</span><b>Generate an image</b><small>Separate SD-Turbo download; WebGPU
+                                required</small></button></div>
+                </div>
+                <div class="msgs" id="msgs"></div>
+            </section>
+            <div class="composer-wrap">
+                <div class="composer"><textarea id="prompt"
+                        placeholder="Message LocalMind… (Shift + Enter for a new line)"></textarea>
+                    <div id="fileNames" class="filelist"></div>
+                    <div class="composebar"><button class="action" id="uploadBtn">＋ Attach</button><button
+                            class="action hidden" id="zipBtn">⇩ Make ZIP</button><input id="fileInput" class="hidden"
+                            type="file" multiple><select id="taskSelect" aria-label="Choose task">
+                            <option value="chat">Chat</option>
+                            <option value="help">LocalMind Help</option>
+                            <option value="code">Coding</option>
+                            <option value="expand">Expand</option>
+                            <option value="translate">Translate</option>
+                            <option value="chart">Chart</option>
+                            <option value="image">Image generation</option>
+                        </select><span class="spacer"></span><button class="send" id="sendBtn">Send ↗</button></div>
+                </div>
+                <div class="hint">Prompts run on your device. Chats and model files are stored locally in browser
+                    storage/cache. Model downloads need internet. AI can make mistakes.</div>
+            </div>
+        </main>
+    </div>
+    <div id="drawerScrim" class="drawer-scrim hidden"></div>
+    <div id="modalRoot"></div>
+    <div id="toast" class="toast hidden"></div>
+    <script type="module">
+        const standaloneHTML = '<!doctype html>\n' + document.documentElement.outerHTML; const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+        const DB = 'localmind.chats.v1', USER = 'localmind.user.v1'; let chats = [], active = null, files = [], engine = null, engineType = '', busy = false, hfWorker = null, hfPending = null, imageClient = null, imageLoadPromise = null, imageAbort = null;
+        try {chats = JSON.parse(localStorage.getItem(DB) || '[]')} catch {chats = []} let username = localStorage.getItem(USER) || '';
+        function save() {try {localStorage.setItem(DB, JSON.stringify(chats))} catch (e) {toast('Storage is full. Export a backup, then remove older chats.')} } function toast(t) {let el = $('#toast'); el.textContent = t; el.classList.remove('hidden'); setTimeout(() => el.classList.add('hidden'), 2800)}
+        function escapeHtml(s) {return String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]))}
+        function format(s) {let t = escapeHtml(s); t = t.replace(/```([\w-]*)\n?([\s\S]*?)```/g, (_, lang, code) => `<pre><code>${code.trim()}</code></pre>`); t = t.replace(/`([^`]+)`/g, '<code>$1</code>'); return t.split(/\n{2,}/).map(p => p.startsWith('<pre>') ? p : `<p>${p.replace(/\n/g, '<br>')}</p>`).join('')}
+        function render() {let h = $('#history'); h.innerHTML = '';[...chats].reverse().forEach(c => {let d = document.createElement('div'); d.className = 'chatitem' + (c.id === active ? ' active' : ''); d.innerHTML = `<span>${escapeHtml(c.title || 'New conversation')}</span><button class="del" title="Delete conversation">×</button>`; d.onclick = e => {if (e.target.closest('.del')) {chats = chats.filter(x => x.id !== c.id); if (active === c.id) active = null; save(); render(); return } active = c.id; render(); closeDrawer()}; h.append(d)}); let c = chats.find(x => x.id === active); $('#chatTitle').textContent = c?.title || 'New conversation'; $('#welcome').classList.toggle('hidden', !!(c?.messages?.length)); $('#msgs').innerHTML = c ? (c.messages || []).map(m => `<div class="msg"><div class="avatar">${m.role === 'user' ? escapeHtml((username || 'Y')[0].toUpperCase()) : '✳'}</div><div class="msgbody"><div class="role">${m.role === 'user' ? escapeHtml(username || 'You') : 'LocalMind'}</div>${format(m.content)}</div></div>`).join('') : ''; $('#conversation').scrollTop = $('#conversation').scrollHeight; $('#userName').textContent = username || 'Set a username'; $('#userAvatar').textContent = (username || '?')[0].toUpperCase()}
+        function setStatus(text, mode = '') {$('#statusText').textContent = text; $('#dot').className = 'dot ' + mode}
+        function askUsername() {modal('Welcome to LocalMind', `<p>What should your AI call you? Your name is saved only in this browser.</p><input id="nameField" maxlength="32" placeholder="Your name" value="${escapeHtml(username)}">`, `<button class="action" id="skipName">Later</button><button class="send" id="saveName">Save name</button>`, () => {username = $('#nameField').value.trim(); if (username) localStorage.setItem(USER, username); render(); closeModal()}); $('#skipName').onclick = closeModal}
+        function modal(title, body, buttons, submit) {$('#modalRoot').innerHTML = `<div class="modalback"><div class="modal"><h2>${title}</h2>${body}<div class="modalactions">${buttons}</div></div></div>`; $('#modalRoot').querySelector('.modalback').onclick = e => {if (e.target.classList.contains('modalback')) closeModal()}; if (submit) $('#saveName').onclick = submit}
+        function closeModal() {$('#modalRoot').innerHTML = ''}
+        function newChat() {const c = {id: crypto.randomUUID(), title: 'New conversation', messages: []}; chats.push(c); active = c.id; files = []; $('#fileNames').textContent = ''; $('#fileInput').value = ''; save(); render(); $('#prompt').focus()}
+        async function loadModel() {if (busy) return; const which = $('#modelSelect').value; busy = true; $('#loadBtn').disabled = true; engine = null; engineType = ''; setStatus('Starting worker…', 'loading'); try {if (location.protocol === 'file:') throw Error('Open this page from localhost (for example, VS Code Live Server); browsers block module workers from file pages.'); if (!navigator.gpu) throw Error('WebGPU is unavailable in this browser/device. Try an up-to-date supported browser and device.'); if (which.startsWith('hf:')) {const source = "import {pipeline,env} from 'https://esm.run/@huggingface/transformers';env.allowLocalModels=false;let gen;onmessage=async e=>{const m=e.data;try{if(m.cmd==='load'){gen=await pipeline('text-generation',m.model,{device:'webgpu',progress_callback:p=>{if(p.status==='progress')postMessage({type:'progress',value:Math.round(p.progress||0)})}});postMessage({type:'ready'})}else if(m.cmd==='generate'){const out=await gen(m.prompt,{max_new_tokens:400,do_sample:true,temperature:.7});const text=Array.isArray(out)?out[0]?.generated_text:out?.generated_text;postMessage({type:'answer',text:typeof text==='string'?text:JSON.stringify(text)})}}catch(err){postMessage({type:'error',message:err?.message||String(err)})}}"; const blob = URL.createObjectURL(new Blob([source], {type: 'text/javascript'})); hfWorker = new Worker(blob, {type: 'module'}); URL.revokeObjectURL(blob); hfWorker.onmessage = e => {const m = e.data; if (m.type === 'progress') setStatus('Downloading ' + m.value + '%', 'loading'); else if (m.type === 'ready') {setStatus('Model ready', 'ready'); toast('Model ready on this device'); hfPending?.resolve(true); hfPending = null} else if (m.type === 'answer') {hfPending?.resolve(m.text); hfPending = null} else if (m.type === 'error') {if (hfPending) {hfPending.reject(Error(m.message)); hfPending = null} else {setStatus('Model error'); toast(m.message)} } }; hfWorker.onerror = e => {hfPending?.reject(Error(e.message || 'Model worker failed')); hfPending = null; setStatus('Worker error')}; await new Promise((resolve, reject) => {hfPending = {resolve, reject}; hfWorker.postMessage({cmd: 'load', model: which.slice(3)})}); engine = hfWorker; engineType = 'transformers'} else {const {CreateWebWorkerMLCEngine} = await import('https://esm.run/@mlc-ai/web-llm'); const source = "import {WebWorkerMLCEngineHandler} from 'https://esm.run/@mlc-ai/web-llm';const h=new WebWorkerMLCEngineHandler();onmessage=h.onmessage.bind(h);"; const blob = URL.createObjectURL(new Blob([source], {type: 'text/javascript'})); const worker = new Worker(blob, {type: 'module'}); URL.revokeObjectURL(blob); worker.onerror = e => {console.error('WebLLM worker error', e); setStatus('Worker error')}; engine = await CreateWebWorkerMLCEngine(worker, which, {initProgressCallback: p => setStatus(p.text || 'Loading model…', 'loading')}); engineType = 'webllm'} setStatus('Model ready', 'ready'); toast('Model ready on this device')} catch (e) {console.error(e); engine = null; engineType = ''; setStatus('Load failed'); toast(e.message || 'Model failed to load')} finally {busy = false; $('#loadBtn').disabled = false} }
+        function taskPrompt(task, prompt) {const pre = {code: 'You are a helpful programming assistant. Provide correct, readable code and explain it briefly.\n\n', expand: 'Expand and polish the user’s idea while preserving its meaning.\n\n', translate: 'Translate the following text. If no target language is specified, ask which language they want.\n\n', chart: 'Analyze the data in the message or attached file. Summarize the key values and suggest a chart. When possible, include a compact JSON array of numeric values for plotting.\n\n', help: 'You are LocalMind support. Answer questions about using this browser app: model loading, image generation, privacy, saved chats, files, and controls. Be concise and do not claim features the app does not have.\\n\\n'}; return (pre[task] || '') + prompt}
+        function parseNewChatCommand(text) {const match = text.match(/^\\s*(?:(?:please\\s+)?(?:create|start|open)\\s+)?(?:a\\s+)?new\\s+(?:chat|conversation)\\b([\\s\\S]*)$/i); if (!match) return null; let message = match[1].trim().replace(/^[:,-]\\s*/, ''); message = message.replace(/^(?:and\\s+)?(?:ask|tell|send|message|prompt)\\s+(?:the\\s+)?(?:ai|assistant|model)\\s+(?:to\\s+)?/i, ''); return {message}}
+        function localHelpAnswer(question) {const q = question.toLowerCase(); const appContext = /(\\blocalmind\\b|\\bthis app\\b|\\bthis site\\b|\\bin this app\\b|\\bin here\\b|\\bthe app\\b)/i.test(q); if (/(image generation|generate an image|make an image|draw an image|image model)/i.test(q) && (appContext || /\\bhow\\b|\\bwhy\\b|\\bwhere\\b|\\bdoes\\b|\\bwork\\b/i.test(q))) return 'Image generation uses a separate SD-Turbo image model; it does not use the selected text model. Choose Image generation in the task menu, describe the image, and send. The first image-model download can take time and needs WebGPU. If your browser reports that WebGPU is unavailable, this device cannot run the image model here.'; if (/(clear|delete|remove).*(cache|chat|data)|(cache|chat).*(clear|delete|remove)/i.test(q)) return 'Use Clear cache & chats in the sidebar (open the ☰ menu on a phone). Confirm to remove saved chats, your username, and this app’s known model caches. Export a JSON chat backup first if you want to keep your conversations.'; if (/(backup|export|restore|import).*(chat|conversation)|(chat|conversation).*(backup|restore)/i.test(q)) return 'Use Backup chats to download a JSON file. Use Restore to import it later. Backups contain your chat text and username, but not generated image files or model weights.'; if (/(username|your name|call me|name setting)/i.test(q)) return 'Use the pencil next to your profile name in the sidebar. Your username is saved only in this browser.'; if (/(model|download|webgpu|load).*(choose|select|load|work|slow|stuck)|(choose|select).*(model)/i.test(q)) return 'Choose a model from the size groups, then press the down-arrow to load it. Start with Small on limited hardware. The first download may take several minutes. WebGPU and enough device memory are required.'; if (/(zip|attach|upload|file)/i.test(q) && (appContext || /\\bhow\\b|\\bwhere\\b|\\bcan\\b/i.test(q))) return 'Use Attach to select files. Text files can be included in a prompt; other file types are listed but not interpreted. After attaching, choose Make ZIP to download the selected files as an archive.'; if (/(private|privacy|stored|server|local|data)/i.test(q) && appContext) return 'Prompts run on your device with the selected model. The page downloads scripts and model files from external providers. Chats and your username are saved in this browser’s local storage, and models are cached locally. Clearing site data can remove them.'; if (/(help|what can you do|how do i use|how does this work)/i.test(q) && appContext) return 'I can explain LocalMind’s models, image generation, chat backup and restore, file attachments, ZIP creation, privacy, and cache controls. Ask a specific question or use the LocalMind Help task.'; return null}
+        function addLocalHelpReply(prompt, answer) {let c = chats.find(x => x.id === active); if (!c) {c = {id: crypto.randomUUID(), title: prompt.slice(0, 42) || 'LocalMind Help', messages: []}; chats.push(c); active = c.id} c.messages.push({role: 'user', content: prompt}, {role: 'assistant', content: answer}); $('#prompt').value = ''; save(); render(); $('#conversation').scrollTop = $('#conversation').scrollHeight}
+        async function generate(task, prompt) {
+            if (busy) return; const newCommand = parseNewChatCommand(prompt); if (newCommand) {newChat(); if (!newCommand.message) {$('#prompt').value = ''; toast('Started a new chat. Add a message for the AI.'); return } prompt = newCommand.message; $('#prompt').value = prompt} const helpAnswer = localHelpAnswer(prompt); if (helpAnswer) {addLocalHelpReply(prompt, helpAnswer); return } if (task === 'help' && !engine) {addLocalHelpReply(prompt, 'Ask about choosing/loading models, image generation, chat backups, clearing local data, usernames, file uploads, ZIPs, or privacy. I can answer common app questions without a model download.'); return } if (task !== 'image' && task !== 'help' && !engine) {toast('Choose a model and press ↓ to load it first.'); return } busy = true; $('#sendBtn').disabled = true; $('#taskSelect').disabled = true; $('#modelSelect').disabled = true; let c = chats.find(x => x.id === active); if (!c) {c = {id: crypto.randomUUID(), title: prompt.slice(0, 42) || task, messages: []}; chats.push(c); active = c.id} let content = prompt; if (files.length) {for (const f of files) {if (f.type.startsWith('text/') || /\.(txt|md|csv|json|js|ts|html|css|py|xml|yaml|yml|log)$/i.test(f.name)) {try {const txt = await f.text(); content += `\n\n[Attached file: ${f.name}]\n${txt.slice(0, 20000)}`} catch { } } else content += `\n\n[Attached file: ${f.name} (${f.type || 'unknown file type'}, ${Math.round(f.size / 1024)} KB). File content is not readable as text.]`} }
+            if (task === 'image') {await imageGen(prompt, c); finish(); return } if (task === 'chart') {addChart(c, content)} c.messages.push({role: 'user', content}); files = []; $('#fileNames').textContent = ''; $('#prompt').value = ''; save(); render(); let wrap = document.createElement('div'); wrap.className = 'msg'; wrap.innerHTML = '<div class="avatar">✳</div><div class="msgbody"><div class="role">LocalMind</div><div class="typing">Thinking on your device…</div></div>'; $('#msgs').append(wrap); $('#welcome').classList.add('hidden'); $('#conversation').scrollTop = $('#conversation').scrollHeight; const thinkingStarted = Date.now(); const thinkingTimer = setInterval(() => {if (wrap.isConnected) {const sec = Math.floor((Date.now() - thinkingStarted) / 1000); wrap.querySelector('.typing').textContent = sec < 30 ? 'Thinking on your device…' : `Still generating on your device (${sec}s). Larger models can take a few minutes.`} }, 5000); try {let answer; if (engineType === 'webllm') {const hist = c.messages.slice(-12).map(m => ({role: m.role === 'assistant' ? 'assistant' : 'user', content: m.role === 'user' && m.content === content ? taskPrompt(task, content) : m.content})); const stream = await engine.chat.completions.create({messages: [{role: 'system', content: 'You are LocalMind, a helpful assistant. Address the user as ' + (username || 'friend') + ' when natural.'}, ...hist], stream: true}); answer = ''; for await (const chunk of stream) {answer += chunk.choices?.[0]?.delta?.content || ''; wrap.querySelector('.typing').innerHTML = format(answer) || 'Generating…'; $('#conversation').scrollTop = $('#conversation').scrollHeight} } else {answer = await new Promise((resolve, reject) => {hfPending = {resolve, reject}; hfWorker.postMessage({cmd: 'generate', prompt: taskPrompt(task, content)})})} if (!answer.trim()) throw Error('The model returned an empty answer. Try a smaller model or a shorter prompt.'); c.messages.push({role: 'assistant', content: answer});} catch (e) {console.error(e); c.messages.push({role: 'assistant', content: `I couldn’t finish that request: ${e.message || e}. Try again or reload the model.`})} clearInterval(thinkingTimer); wrap.remove(); save(); render(); finish()
+        }
+        function finish() {busy = false; $('#sendBtn').disabled = false; $('#taskSelect').disabled = false; $('#modelSelect').disabled = false}
+        function addChart(c, prompt) {let nums = [...prompt.matchAll(/(?:^|[,\s])(-?\d+(?:\.\d+)?)/g)].map(m => +m[1]).slice(0, 14); if (nums.length < 2) return; let max = Math.max(...nums.map(Math.abs), 1); let bars = nums.map((n, i) => `<div title="${n}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:70%;height:${Math.max(5, Math.abs(n) / max * 110)}px;background:${i % 2 ? '#b9a9ff' : '#b6f09c'};border-radius:4px 4px 0 0"></div><small style="font:9px 'DM Mono';color:#9296a9">${n}</small></div>`).join(''); $('#msgs').insertAdjacentHTML('beforeend', `<div style="max-width:780px;margin:8px auto 18px;padding:14px;background:#171923;border:1px solid #2b2d3b;border-radius:10px"><div style="font:10px 'DM Mono';color:#9296a9;margin-bottom:12px">QUICK CHART · ${nums.length} VALUES</div><div style="display:flex;align-items:end;gap:7px;height:140px;border-bottom:1px solid #393b49">${bars}</div></div>`)}
+        async function imageGen(prompt, c) {c.messages.push({role: 'user', content: 'Generate an image: ' + prompt}); $('#prompt').value = ''; files = []; $('#fileNames').textContent = ''; save(); render(); $('#welcome').classList.add('hidden'); const wrap = document.createElement('div'); wrap.className = 'msg'; wrap.innerHTML = '<div class="avatar">✳</div><div class="msgbody"><div class="role">LocalMind · image generator</div><div class="typing">Preparing the separate image model…</div></div>'; $('#msgs').append(wrap); $('#conversation').scrollTop = $('#conversation').scrollHeight; try {if (!navigator.gpu) throw Error('Image generation requires WebGPU on a compatible browser and GPU. Text models do not provide image generation.'); if (!imageClient) {const mod = await import('https://esm.run/web-txt2img'); imageClient = mod.Txt2ImgWorkerClient.createDefault()} const caps = await imageClient.detect(); if (!caps.webgpu) throw Error('This browser or device does not support the WebGPU image backend.'); if (!imageLoadPromise) {imageLoadPromise = imageClient.load('sd-turbo', {backendPreference: ['webgpu']}, p => {const pct = p.pct == null ? '' : (' ' + p.pct + '%'); const mb = p.bytesDownloaded != null && p.totalBytesExpected ? (' · ' + (p.bytesDownloaded / 1048576).toFixed(0) + '/' + (p.totalBytesExpected / 1048576).toFixed(0) + ' MB') : ''; wrap.querySelector('.typing').textContent = 'Downloading image model' + pct + mb})} const loaded = await imageLoadPromise; if (!loaded?.ok) throw Error(loaded?.message || 'Could not load the SD-Turbo image model.'); wrap.querySelector('.typing').textContent = 'Generating image on this device…'; const job = imageClient.generate({prompt: prompt, seed: Math.floor(Math.random() * 2147483647)}, e => {if (wrap.isConnected && e?.phase) wrap.querySelector('.typing').textContent = 'Generating image · ' + e.phase}); imageAbort = job.abort; const result = await job.promise; imageAbort = null; if (!result?.ok) throw Error(result?.message || result?.reason || 'Image generation did not complete.'); const url = URL.createObjectURL(result.blob); const body = wrap.querySelector('.msgbody'); body.innerHTML = '<div class="role">LocalMind · generated locally</div>'; const img = document.createElement('img'); img.src = url; img.alt = 'Image generated from: ' + prompt; img.style.cssText = 'max-width:min(100%,480px);border-radius:10px'; body.append(img); body.append(document.createElement('br')); const link = document.createElement('a'); link.href = url; link.download = 'LocalMind-image.png'; link.textContent = 'Download image'; link.style.color = '#b6f09c'; body.append(link); c.messages.push({role: 'assistant', content: 'Image generated. Download it now; image files are not stored in chat history or JSON backups.'})} catch (e) {console.error(e); imageLoadPromise = null; const message = e?.message || String(e); wrap.querySelector('.msgbody').innerHTML = '<div class="role">Image generation unavailable</div>'; const p = document.createElement('p'); p.textContent = message; wrap.querySelector('.msgbody').append(p); c.messages.push({role: 'assistant', content: 'Image generation failed: ' + message})} save(); $('#conversation').scrollTop = $('#conversation').scrollHeight}
+        $('#newChat').onclick = () => {newChat(); closeDrawer()}; $('#loadBtn').onclick = loadModel; $('#mobileMenu').onclick = () => {$('.sidebar').classList.add('open'); $('#drawerScrim').classList.remove('hidden')}; $('#drawerScrim').onclick = closeDrawer; function closeDrawer() {$('.sidebar').classList.remove('open'); $('#drawerScrim').classList.add('hidden')} $('#modelSelect').onchange = () => {engine = null; engineType = ''; setStatus('Model not loaded'); toast('Load the selected model to use it')}; $('#sendBtn').onclick = () => {let p = $('#prompt').value.trim(); if (p) generate($('#taskSelect').value, p)}; $('#prompt').onkeydown = e => {if (e.key === 'Enter' && !e.shiftKey) {e.preventDefault(); $('#sendBtn').click()} }; $('#uploadBtn').onclick = () => $('#fileInput').click(); $('#fileInput').onchange = e => {files = [...files, ...e.target.files]; $('#fileNames').textContent = files.map(f => f.name).join(' · '); $('#zipBtn').classList.toggle('hidden', files.length < 1); e.target.value = ''}; const showAbout = () => {closeDrawer(); modal('About LocalMind', `<p>LocalMind runs text generation in your browser using WebLLM (WebGPU) or Transformers.js. Prompts are processed on your device; they are not sent to an AI inference server.</p><p><strong>Local data:</strong> your username and saved chats are stored in this browser’s local storage. Downloaded model files are cached by your browser. So data is stored locally, and clearing site data may delete it. Export a JSON backup before clearing browser data.</p><p><strong>Network:</strong> this standalone page loads scripts and model files from external providers. The HTML still needs internet for libraries and model weights, and must be opened from localhost (not file://) for browser workers. Browser support and device memory affect which models work. AI output can be incorrect; image generation is experimental.</p>`, `<button class="send" id="closeAbout">Close</button>`); $('#closeAbout').onclick = closeModal}; $('#clearCacheBtn').onclick = () => {closeDrawer(); modal('Clear local data?', '<p>This removes saved chats and your username, plus this app’s cached WebLLM, Transformers.js, and image-model files. It cannot be undone. Export a JSON chat backup first if you want to keep your conversations.</p><p>The next model use will download files again.</p>', '<button class="action" id="cancelClear">Cancel</button><button class="send" id="confirmClear">Clear local data</button>'); $('#cancelClear').onclick = closeModal; $('#confirmClear').onclick = clearLocalData}; async function clearLocalData() {closeModal(); try {if (imageAbort) {try {await imageAbort()} catch { } imageAbort = null;} if (imageClient) {try {await imageClient.unload()} catch { } try {await imageClient.purgeAll()} catch { } } if (engine && engine.unload) {try {await engine.unload()} catch { } } if (engine && engine.worker && engine.worker.terminate) {engine.worker.terminate()} if (hfWorker) {hfWorker.terminate(); hfWorker = null} engine = null; engineType = ''; imageClient = null; imageLoadPromise = null; localStorage.removeItem(DB); localStorage.removeItem(USER); chats = []; active = null; username = ''; if ('caches' in window) {const keys = await caches.keys(); for (const name of keys) {if (name.startsWith('webllm/') || name.startsWith('transformers-cache') || name.startsWith('web-txt2img')) await caches.delete(name)} } render(); setStatus('Model not loaded'); toast('This app’s chats and model caches were cleared.')} catch (e) {console.error(e); toast('Some cached files could not be cleared. Clear site data in your browser settings to remove the remainder.')} } $('#aboutBtn').onclick = showAbout; $('#aboutTopBtn').onclick = showAbout; $('#downloadBtn').onclick = () => {const blob = new Blob([standaloneHTML], {type: 'text/html'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'index.html'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); toast('Downloaded index.html')}; $('#zipBtn').onclick = async () => {if (!files.length) return; try {const {default: JSZip} = await import('https://esm.run/jszip'); const zip = new JSZip(); for (const f of files) zip.file(f.name, f); const blob = await zip.generateAsync({type: 'blob'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'LocalMind-files.zip'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); toast('ZIP downloaded')} catch (e) {toast('Could not create ZIP: ' + e.message)} }; $('#editUser').onclick = askUsername; $('#taskSelect').onchange = () => {let t = $('#taskSelect').value; $('#prompt').placeholder = t === 'translate' ? 'Text to translate and target language…' : t === 'image' ? 'Describe the image to generate…' : t === 'chart' ? 'Paste data or attach a CSV file…' : 'Message LocalMind…'}; $$('.card').forEach(b => b.onclick = () => {$('#taskSelect').value = b.dataset.task; $('#taskSelect').dispatchEvent(new Event('change')); $('#prompt').focus()}); $('#exportBtn').onclick = () => {const blob = new Blob([JSON.stringify({format: 'localmind-chat-backup', version: 1, exportedAt: new Date().toISOString(), username, chats}, null, 2)], {type: 'application/json'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'LocalMind-chat-backup.json'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); toast('Backup downloaded as JSON')}; $('#importBtn').onclick = () => $('#importFile').click(); $('#importFile').onchange = async e => {const f = e.target.files[0]; if (!f) return; try {const data = JSON.parse(await f.text()); if (!Array.isArray(data.chats)) throw Error('Invalid backup format'); let ids = new Set(chats.map(c => c.id)); chats.push(...data.chats.filter(c => !ids.has(c.id))); if (data.username && !username) {username = data.username; localStorage.setItem(USER, username)} save(); render(); toast('Chats restored')} catch (err) {toast('Could not restore: ' + err.message)} e.target.value = ''};
+        $('#conversation').addEventListener('click', e => {if (e.target.closest('img') || e.target.closest('a')) return }); render(); if (!username) setTimeout(askUsername, 350);
+    </script>
+</body>
+
+</html>
