@@ -72,6 +72,3 @@ README.md    This guide
 - **Generation is slow** — try a Small model and a shorter prompt. Model size and device GPU have a large effect on speed.
 - **Chats disappeared** — restore the JSON backup if you exported one. Browser local storage cannot recover chats after it has been cleared.
 
-## License
-
-No project license is included yet. Before publishing, choose and add a license that fits your project. The model weights and third-party libraries have their own licenses and terms; check each model’s model card and each library’s license before redistribution or commercial use.
